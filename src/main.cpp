@@ -1,6 +1,14 @@
 #include <boost/asio.hpp>
-#include <boost/bind.hpp>
+#include <iostream>
+#include <thread>
+
+#include "log/Logging.hpp"
+#include "include/UDPReceiver.h"
+#include "include/UDPSender.h"
+/*
 #include <boost/array.hpp>
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
 #include <iostream>
 #include <thread>
 
@@ -80,6 +88,26 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < 3; ++i) {
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
         Sender(input);
+    }
+
+    r.join();
+}
+*/
+
+int main(int argc, char* argv[]) {
+    merci::nw::UDPReceiver receiver;
+    std::thread r([&] { receiver.receiver("127.0.0.1", 13252); });
+
+    std::string input = argc > 1 ? argv[1] : "hello world";
+    std::ostringstream s;
+    s << "Input is '" << input.c_str() << "'\nSending it to Sender Function...";
+    merci::logging::TRACE(s.str());
+
+    merci::nw::UDPSender sender;
+    sender.bind("127.0.0.1", 13252);
+    for (int i = 0; i < 3; ++i) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        sender.send(input);
     }
 
     r.join();

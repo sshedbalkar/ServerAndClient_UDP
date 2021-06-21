@@ -1,7 +1,11 @@
 find_package(asio REQUIRED)
 
 # Add source files
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES 
+main.cpp
+nw/UDPSender.cpp
+nw/UDPReceiver.cpp
+)
 
 # message("CXX id: ${CMAKE_CXX_COMPILER_ID}")
 # If we build for windows systems, we also include the resource file
