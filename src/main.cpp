@@ -6,6 +6,9 @@
 #include "include/UDPReceiver.h"
 #include "include/UDPSender.h"
 /*
+===============================================================================
+@credit: https://gist.github.com/kevinkreiser/39f2e39273c625d96790
+===============================================================================
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
